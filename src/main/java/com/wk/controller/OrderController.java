@@ -1,9 +1,16 @@
 package com.wk.controller;
 
 
+import com.wk.global.entity.dto.JsonResponse;
+import com.wk.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -16,6 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
+
+    @Autowired
+    OrderService orderService;
+
+    @GetMapping("/{userId}")
+    public JsonResponse getOrderList(@PathVariable("userId") @NotNull Integer userId){
+        return new JsonResponse().data(orderService.getgetOrderList(userId));
+    }
+
 
 }
 
