@@ -2,7 +2,11 @@ package com.wk.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wk.controller.CommodityController;
 import com.wk.entity.Order;
+import com.wk.entity.OrderCommodityUser;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +18,5 @@ import com.wk.entity.Order;
  */
 public interface OrderService extends IService<Order> {
 
+    List<OrderCommodityUser> getgetOrderList(Integer userId);
 }

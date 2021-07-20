@@ -2,4 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wk.mapper.OrderMapper">
 
+    <resultMap id="orderWithCommodityWithUser" type="orderCommodityUser">
+        <id column="o_id" property="oId" jdbcType="INTEGER"/>
+        <result column="o_createTime" property="oCreatetime" jdbcType="DATE"/>
+        <result column="o_condition" property="oCondition" jdbcType="INTEGER"/>
+        <association property="commodity" javaType="Commodity">
+            <id column="c_id" property="cId" jdbcType="INTEGER"/>
+            <result column="c_name" property="cName" jdbcType="VARCHAR"/>
+            <result column="c_type" property="cType" jdbcType="VARCHAR"/>
+            <result column="c_num" property="cNum" jdbcType="INTEGER"/>
+            <result column="c_price" property="cPrice" jdbcType="INTEGER"/>
+        </association>
+        <association property="user" javaType="User">
+            <id column="u_id" property="uId" jdbcType="INTEGER"/>
+            <result column="u_name" property="uName" jdbcType="VARCHAR"/>
+            <result column="u_phone" property="uPhone" jdbcType="VARCHAR"/>
+            <result column="u_address" property="uAddress" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--List<OrderCommodityUser> getOrderList(@Param("oUser") Integer oUser);-->
+    <select id="getOrderList" resultMap="orderWithCommodityWithUser">
+        SELECT o.o_id, o.o_createTime, o.o_condition,
+               c.c_id, c.c_name, c.c_type, c.c_num, c.c_price,
+               u.u_id, u.u_name, u.u_phone, u.u_address
+        FROM `order` o
+        INNER JOIN `user` u
+        ON o.o_user = u.u_id
+        INNER JOIN `commodity` c
+        ON o.o_commodity = c.c_id
+        WHERE o.o_user = #{oUser}
+        ORDER BY o.o_createTime DESC
+    </select>
+
 </mapper>

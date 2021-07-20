@@ -1,10 +1,11 @@
-#设置我们的开发环境
 spring:
   profiles:
     active: dev
   thymeleaf:
     cache: false
-
+  redis:
+    host: 127.0.0.1
+    port: 6379
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/theorder1?userSSL=false&userUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
@@ -19,5 +20,5 @@ mybatis-plus:
     db-config:
       logic-not-delete-value: 0
       logic-delete-value: 1
-  mapper-locations: com.wk.mapper
+  mapper-locations: classpath:mybatis/mapper/*.xml
   type-aliases-package: com.wk.entity

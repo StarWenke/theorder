@@ -1,10 +1,15 @@
 package com.wk.service.impl;
 
+import com.wk.controller.CommodityController;
 import com.wk.entity.Order;
+import com.wk.entity.OrderCommodityUser;
 import com.wk.mapper.OrderMapper;
 import com.wk.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +22,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
+    @Autowired
+    private OrderMapper orderMapper;
+
+    @Override
+    public List<OrderCommodityUser> getgetOrderList(Integer userId) {
+        return orderMapper.getOrderList(userId);
+    }
 }

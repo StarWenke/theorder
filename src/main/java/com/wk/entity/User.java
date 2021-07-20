@@ -34,7 +34,7 @@ public class User implements Serializable {
     private String uName;
 
     @ApiModelProperty(value = "用户手机号")
-    private Integer uPhone;
+    private String uPhone;
 
     @ApiModelProperty(value = "用户收货地址")
     private String uAddress;
