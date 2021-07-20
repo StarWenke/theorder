@@ -1,4 +1,4 @@
-package com.wk.theorder;
+package com.wk;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
