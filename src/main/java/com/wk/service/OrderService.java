@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.wk.controller.CommodityController;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 
 import java.util.List;
 
@@ -19,4 +20,10 @@ import java.util.List;
 public interface OrderService extends IService<Order> {
 
     List<OrderCommodityUser> getgetOrderList(Integer userId);
+
+    //查询单个订单
+    SpringDataJaxb.OrderDto findOne(int o_id);
+
+    //取消订单
+    SpringDataJaxb.OrderDto cancel(SpringDataJaxb.OrderDto orderDto);
 }
