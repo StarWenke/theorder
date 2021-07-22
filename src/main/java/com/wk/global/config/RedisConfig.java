@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -42,5 +43,21 @@ public class RedisConfig {
 
         return template;
     }
+
+    /**
+     * 监听Redis的过期事件
+     * @author Makonike
+     * @date 2021/7/21 23:38
+     */
+    @Bean
+    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
+
+        //设置redis消息监听器
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        //设置redis链接工厂
+        container.setConnectionFactory(connectionFactory);
+        return container;
+    }
+
 
 }

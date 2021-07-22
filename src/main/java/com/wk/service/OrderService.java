@@ -6,6 +6,7 @@ import com.wk.controller.CommodityController;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,6 +21,10 @@ import java.util.List;
 public interface OrderService extends IService<Order> {
 
     List<OrderCommodityUser> getgetOrderList(Integer userId);
+
+    boolean orderExpired(Integer oId);
+
+    List<OrderCommodityUser> getOrderListByCondition(Integer userId,String condition);
 
     //查询单个订单
     SpringDataJaxb.OrderDto findOne(int o_id);

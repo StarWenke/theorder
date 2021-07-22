@@ -64,4 +64,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         insertOrder(order);
         return order;
     }
+
+    @Override
+    public boolean orderExpired(Integer oId) {
+        return orderMapper.orderExpired(oId);
+    }
+
+    /**
+     * 查询某个用户指定订单状态的订单数据
+     * @param userId 用户Id
+     * @param condition 指定的订单状态
+     * @author Makonike
+     * @date 2021/7/22 22:55
+     */
+    @Override
+    public List<OrderCommodityUser> getOrderListByCondition(Integer userId, String condition) {
+        return orderMapper.getOrderListByCondition(userId, condition);
+    }
 }
