@@ -29,4 +29,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public List<OrderCommodityUser> getgetOrderList(Integer userId) {
         return orderMapper.getOrderList(userId);
     }
+
+    @Override
+    public boolean orderExpired(Integer oId) {
+        return orderMapper.orderExpired(oId);
+    }
 }

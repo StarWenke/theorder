@@ -19,4 +19,6 @@ import java.util.List;
 public interface OrderService extends IService<Order> {
 
     List<OrderCommodityUser> getgetOrderList(Integer userId);
+
+    public boolean orderExpired(Integer oId);
 }
