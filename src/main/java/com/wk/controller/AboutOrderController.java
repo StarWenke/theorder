@@ -24,7 +24,6 @@ public class AboutOrderController {
 
     @GetMapping("/cancel")
     public ModelAndView cancel(@RequestParam("o_id") int o_id, Map<String,Object> map){
-
         try{
             SpringDataJaxb.OrderDto orderDto = orderService.findOne(o_id);
             orderService.cancel(orderDto);

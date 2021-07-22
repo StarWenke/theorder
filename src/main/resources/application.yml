@@ -8,9 +8,9 @@ spring:
     port: 6379
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/theorder1?userSSL=false&userUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/theorder?userSSL=false&userUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
-    password: 0916
+    password: 123456
 
 mybatis-plus:
   configuration:
