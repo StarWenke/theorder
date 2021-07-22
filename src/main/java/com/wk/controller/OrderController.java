@@ -32,6 +32,12 @@ public class OrderController {
         return new JsonResponse().data(orderService.getgetOrderList(userId));
     }
 
+    @GetMapping("/{userId}/{condition}")
+    public JsonResponse getOrderListByCondition(@PathVariable("userId") @NotNull Integer userId,
+                                                @PathVariable("condition") @NotNull String condition){
+        return new JsonResponse().data(orderService.getOrderListByCondition(userId, condition));
+    }
+
 
 }
 

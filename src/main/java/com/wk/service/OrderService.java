@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.wk.controller.CommodityController;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +21,7 @@ public interface OrderService extends IService<Order> {
 
     List<OrderCommodityUser> getgetOrderList(Integer userId);
 
-    public boolean orderExpired(Integer oId);
+    boolean orderExpired(Integer oId);
+
+    List<OrderCommodityUser> getOrderListByCondition(Integer userId,String condition);
 }

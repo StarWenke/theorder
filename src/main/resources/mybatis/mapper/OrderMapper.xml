@@ -50,5 +50,19 @@
         AND o_condition = 0
     </update>
 
+    <!--List<OrderCommodityUser> getOrderListByCondition(@Param("oUser") Integer oUser, @Param("oCondition") String oCondition);-->
+    <select id="getOrderListByCondition" resultMap="orderWithCommodityWithUser">
+        SELECT o.o_id, o.o_createTime, o.o_condition,
+               c.c_id, c.c_name, c.c_type, c.c_num, c.c_price,
+               u.u_id, u.u_name, u.u_phone, u.u_address
+        FROM `order` o
+        INNER JOIN `user` u
+        ON o.o_user = u.u_id
+        INNER JOIN `commodity` c
+        ON o.o_commodity = c.c_id
+        WHERE o.o_user = #{oUser}
+        AND o.o_condition = #{oCondition}
+        ORDER BY o.o_createTime DESC
+    </select>
 
 </mapper>
