@@ -56,11 +56,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public Order createOrder(Integer o_id,Integer o_user,Integer o_commodity,String o_condition) throws Exception {
         Date now = new Date();
         Order order=new Order();
-        order.setOId(o_id);
-        order.setOUser(o_user);
-        order.setOCreatetime(now);
-        order.setOCondition(o_condition);
-        order.setOCommodity(o_commodity);
+        order.setO_idd(o_id);
+        order.setO_user(o_user);
+        order.setO_createtime(now);
+        order.setO_condition(o_condition);
+        order.setO_commodity(o_commodity);
         insertOrder(order);
         return order;
     }

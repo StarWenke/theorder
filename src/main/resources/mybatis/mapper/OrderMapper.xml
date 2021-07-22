@@ -36,7 +36,7 @@
     </select>
 
     <!---增加订单-->
-    <select id="addOrder" parameterType="Order">
+    <select id="insertOrder" parameterType="Order">
         INSERT INTO order(o_id,o_createTime,o_user,o_commodity,o_condition)
         values (#{o_id},#{o_createTime},#{o_user},#{o_commodity},#{o_condition})
     </select>
