@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 23/07/2021 00:42:41
+ Date: 23/07/2021 00:51:38
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ INSERT INTO `commodity` VALUES (4, '新华字典', '书籍', 1, 35.00);
 -- ----------------------------
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`  (
-  `o_id` int(11) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT '订单id',
+  `o_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `o_no` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单编号',
   `u_id` int(11) NULL DEFAULT NULL,
   `c_id` int(11) NULL DEFAULT NULL,
@@ -57,10 +57,10 @@ CREATE TABLE `order`  (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES (00000000001, '202122220011', 1, 1, 7000.00, '2021-07-23 00:13:05', '2021-07-23 00:14:14', 0);
-INSERT INTO `order` VALUES (00000000002, '202122220012', 1, 2, 50.00, '2021-07-23 00:16:03', '2021-07-23 00:16:10', 0);
-INSERT INTO `order` VALUES (00000000003, '202122220013', 2, 3, 30.00, '2021-07-23 00:18:54', '2021-07-23 00:19:00', 0);
-INSERT INTO `order` VALUES (00000000004, '202122220014', 2, 4, 35.00, '2021-07-23 00:19:16', '2021-07-23 00:19:16', 0);
+INSERT INTO `order` VALUES (1, '202122220011', 1, 1, 7000.00, '2021-07-23 00:13:05', '2021-07-23 00:14:14', 0);
+INSERT INTO `order` VALUES (2, '202122220012', 1, 2, 50.00, '2021-07-23 00:16:03', '2021-07-23 00:16:10', 0);
+INSERT INTO `order` VALUES (3, '202122220013', 2, 3, 30.00, '2021-07-23 00:18:54', '2021-07-23 00:19:00', 0);
+INSERT INTO `order` VALUES (4, '202122220014', 2, 4, 35.00, '2021-07-23 00:19:16', '2021-07-23 00:19:16', 0);
 
 -- ----------------------------
 -- Table structure for user
