@@ -13,4 +13,5 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     List<OrderCommodityUser> getOrderList(@Param("oUser") Integer oUser);
 
+    Integer insertOrder(Order order);
 }
