@@ -43,8 +43,8 @@ public class Commodity implements Serializable {
     @ApiModelProperty(value = "商品数量")
     private Integer cNum;
 
-    @ApiModelProperty(value = "商品价格")
-    private Integer cPrice;
+    @ApiModelProperty(value = "商品单价")
+    private Double cPrice;
 
 
 }
