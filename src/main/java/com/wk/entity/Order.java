@@ -35,19 +35,27 @@ public class Order implements Serializable {
 
     @ApiModelProperty(value = "订单id")
     @TableId(value = "o_id", type = IdType.AUTO)
-    private Integer o_id;
+    private Integer oId;
 
-    @TableField("o_createTime")
-    private Date o_createTime;
+    @TableField("o_no")
+    private String oNo;
 
-    @ApiModelProperty(value = "下单的用户")
-    private Integer o_user;
+    @ApiModelProperty(value = "下单的用户id")
+    private Integer uId;
 
-    @ApiModelProperty(value = "下单的商品")
-    private Integer o_commodity;
+    @ApiModelProperty(value = "下单的商品id")
+    private Integer cId;
+
+    @ApiModelProperty(value = "商品总价")
+    private Double totalAmount;
+
+    @TableField("create_time")
+    private Date createTime;
+
+    @TableField("update_time")
+    private Date updateTime;
 
     @ApiModelProperty(value = "订单状态")
-    private String o_condition;
-
+    private String status;
 
 }
