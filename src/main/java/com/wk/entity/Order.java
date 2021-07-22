@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.context.annotation.Bean;
 
 /**
  * <p>
@@ -34,19 +35,19 @@ public class Order implements Serializable {
 
     @ApiModelProperty(value = "订单id")
     @TableId(value = "o_id", type = IdType.AUTO)
-    private Integer oId;
+    private Integer o_id;
 
     @TableField("o_createTime")
-    private Date oCreatetime;
+    private Date o_createTime;
 
     @ApiModelProperty(value = "下单的用户")
-    private Integer oUser;
+    private Integer o_user;
 
     @ApiModelProperty(value = "下单的商品")
-    private Integer oCommodity;
+    private Integer o_commodity;
 
     @ApiModelProperty(value = "订单状态")
-    private String oCondition;
+    private String o_condition;
 
 
 }

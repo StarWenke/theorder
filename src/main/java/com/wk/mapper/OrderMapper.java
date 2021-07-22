@@ -17,4 +17,5 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     List<OrderCommodityUser> getOrderListByCondition(@Param("oUser") Integer oUser, @Param("oCondition") String oCondition);
 
+    Integer insertOrder(Order order);
 }

@@ -36,10 +36,10 @@
     </select>
 
     <!---增加订单-->
-    <select id="addOrder" parameterType="Order">
-        INSERT INTO order(o_id,o_createTime,o_user,o_commodity,o_condition)
+    <insert id="insertOrder" parameterType="Order">
+        INSERT INTO `order` (o_id,o_createTime,o_user,o_commodity,o_condition)
         values (#{o_id},#{o_createTime},#{o_user},#{o_commodity},#{o_condition})
-    </select>
+    </insert>
 
     <!--boolean orderExpired(@Param("oId") Integer oId);-->
     <!--只有未支付的订单才能过期-->
@@ -64,5 +64,6 @@
         AND o.o_condition = #{oCondition}
         ORDER BY o.o_createTime DESC
     </select>
+
 
 </mapper>
