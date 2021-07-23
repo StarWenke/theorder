@@ -25,9 +25,6 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @Autowired
-    RedisOrderNoGenerate redisOrderNoGenerate;
-
     @GetMapping("/{userId}")
     public JsonResponse getOrderList(@PathVariable("userId") @NotNull Integer userId){
         return new JsonResponse().data(orderService.getOrderList(userId));
@@ -39,15 +36,11 @@ public class OrderController {
         return new JsonResponse().data(orderService.getOrderListByStatus(userId, status));
     }
 
-    @GetMapping("/createOrder")
-    public JsonResponse createOrder(@RequestParam("o_no") String o_no,
-                                    @RequestParam("u_id") Integer u_id,
-                                    @RequestParam("c_id") Integer c_id,
-                                    @RequestParam("total_amount") double total_amount
-
+    @PostMapping("/createOrder")
+    public JsonResponse createOrder(@RequestParam("userId") Integer uId,
+                                    @RequestParam("commodityId") Integer cId
     ) throws Exception {
-        Order order =orderService.createOrder(redisOrderNoGenerate.getOrderNo(),u_id,c_id,total_amount);
-        return new JsonResponse().data(order);
+        return new JsonResponse().data(orderService.createOrder(uId,cId));
     }
 
 

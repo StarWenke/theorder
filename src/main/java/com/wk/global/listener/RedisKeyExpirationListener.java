@@ -36,7 +36,7 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
         //生效的key
        String key=message.toString();
         //从失效key中筛选代表订单失效的key
-        //Todo: 向redis中插入订单号时需要加上order前缀(OrderConstants.ORDER_REDIS_KEY)
+        //Done: 向redis中插入订单号时需要加上order前缀(OrderConstants.ORDER_REDIS_KEY)
         if (key!=null && key.startsWith(OrderConstants.ORDER_REDIS_KEY)){
             //截取订单号，查询订单，如果是未支付状态则取消订单
             String orderNo = key.substring(5);

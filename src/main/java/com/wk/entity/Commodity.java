@@ -1,6 +1,7 @@
 package com.wk.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
@@ -35,15 +36,19 @@ public class Commodity implements Serializable {
     private Integer cId;
 
     @ApiModelProperty(value = "商品名称")
+    @TableField("c_name")
     private String cName;
 
     @ApiModelProperty(value = "商品类型")
+    @TableField("c_type")
     private String cType;
 
     @ApiModelProperty(value = "商品数量")
+    @TableField("c_num")
     private Integer cNum;
 
     @ApiModelProperty(value = "商品单价")
+    @TableField("c_price")
     private Double cPrice;
 
 

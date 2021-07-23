@@ -35,7 +35,7 @@ public interface OrderService extends IService<Order> {
     SpringDataJaxb.OrderDto cancel(SpringDataJaxb.OrderDto orderDto);
 
     //创建订单
-    Order createOrder(String o_no,Integer u_id,Integer c_id,double total_amount) throws Exception;
+    boolean createOrder(Integer uId,Integer cId) throws Exception;
 
 
 

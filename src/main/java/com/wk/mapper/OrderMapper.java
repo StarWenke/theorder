@@ -17,5 +17,5 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     List<OrderCommodityUser> getOrderListByStatus(@Param("uId") Integer uId, @Param("status") Integer status);
 
-    Integer insertOrder(Order order);
+    boolean insertOrder(Order order);
 }
