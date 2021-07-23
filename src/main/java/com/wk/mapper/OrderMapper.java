@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public interface OrderMapper extends BaseMapper<Order> {
 
-    List<OrderCommodityUser> getOrderList(@Param("oUser") Integer oUser);
+    List<OrderCommodityUser> getOrderList(@Param("uId") Integer uId);
 
     boolean orderExpired(@Param("oId") Integer oId);
 
-    List<OrderCommodityUser> getOrderListByCondition(@Param("oUser") Integer oUser, @Param("oCondition") String oCondition);
+    List<OrderCommodityUser> getOrderListByStatus(@Param("uId") Integer uId, @Param("status") Integer status);
 
     Integer insertOrder(Order order);
 }

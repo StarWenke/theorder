@@ -4,35 +4,42 @@
 
     <resultMap id="orderWithCommodityWithUser" type="orderCommodityUser">
         <id column="o_id" property="oId" jdbcType="INTEGER"/>
-        <result column="o_createTime" property="oCreatetime" jdbcType="DATE"/>
-        <result column="o_condition" property="oCondition" jdbcType="INTEGER"/>
-        <association property="commodity" javaType="Commodity">
-            <id column="c_id" property="cId" jdbcType="INTEGER"/>
-            <result column="c_name" property="cName" jdbcType="VARCHAR"/>
-            <result column="c_type" property="cType" jdbcType="VARCHAR"/>
-            <result column="c_num" property="cNum" jdbcType="INTEGER"/>
-            <result column="c_price" property="cPrice" jdbcType="INTEGER"/>
-        </association>
+        <result column="o_no" property="oNo" jdbcType="VARCHAR"/>
+        <result column="total_amount" property="totalAmount" jdbcType="DECIMAL"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="update_time" property="updateTime" jdbcType="DATE"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
         <association property="user" javaType="User">
             <id column="u_id" property="uId" jdbcType="INTEGER"/>
             <result column="u_name" property="uName" jdbcType="VARCHAR"/>
             <result column="u_phone" property="uPhone" jdbcType="VARCHAR"/>
             <result column="u_address" property="uAddress" jdbcType="VARCHAR"/>
         </association>
+        <association property="commodity" javaType="Commodity">
+            <id column="c_id" property="cId" jdbcType="INTEGER"/>
+            <result column="c_name" property="cName" jdbcType="VARCHAR"/>
+            <result column="c_type" property="cType" jdbcType="VARCHAR"/>
+            <result column="c_num" property="cNum" jdbcType="INTEGER"/>
+            <result column="c_price" property="cPrice" jdbcType="DECIMAL"/>
+        </association>
     </resultMap>
 
-    <!--List<OrderCommodityUser> getOrderList(@Param("oUser") Integer oUser);-->
+    <sql id="orderListSql">
+        o.o_id, o.o_no, o.total_amount, o.create_time, o.update_time, o.status
+        c.c_id, c.c_name, c.c_type, c.c_num, c.c_price,
+        u.u_id, u.u_name, u.u_phone, u.u_address
+    </sql>
+
+    <!--List<OrderCommodityUser> getOrderList(@Param("uId") Integer uId);-->
     <select id="getOrderList" resultMap="orderWithCommodityWithUser">
-        SELECT o.o_id, o.o_createTime, o.o_condition,
-               c.c_id, c.c_name, c.c_type, c.c_num, c.c_price,
-               u.u_id, u.u_name, u.u_phone, u.u_address
+        SELECT <include refid="orderListSql"/>
         FROM `order` o
         INNER JOIN `user` u
-        ON o.o_user = u.u_id
+        ON o.u_id = u.u_id
         INNER JOIN `commodity` c
-        ON o.o_commodity = c.c_id
-        WHERE o.o_user = #{oUser}
-        ORDER BY o.o_createTime DESC
+        ON o.c_id = c.c_id
+        WHERE o.u_id = #{uId}
+        ORDER BY o.create_time DESC
     </select>
 
     <!---增加订单-->
@@ -50,19 +57,17 @@
         AND o_condition = 0
     </update>
 
-    <!--List<OrderCommodityUser> getOrderListByCondition(@Param("oUser") Integer oUser, @Param("oCondition") String oCondition);-->
-    <select id="getOrderListByCondition" resultMap="orderWithCommodityWithUser">
-        SELECT o.o_id, o.o_createTime, o.o_condition,
-               c.c_id, c.c_name, c.c_type, c.c_num, c.c_price,
-               u.u_id, u.u_name, u.u_phone, u.u_address
+    <!--List<OrderCommodityUser> getOrderListByStatus(@Param("uId") Integer uId, @Param("status") Integer status);-->
+    <select id="getOrderListByStatus" resultMap="orderWithCommodityWithUser">
+        SELECT <include refid="orderListSql"/>
         FROM `order` o
         INNER JOIN `user` u
-        ON o.o_user = u.u_id
+        ON o.u_id = u.u_id
         INNER JOIN `commodity` c
-        ON o.o_commodity = c.c_id
-        WHERE o.o_user = #{oUser}
-        AND o.o_condition = #{oCondition}
-        ORDER BY o.o_createTime DESC
+        ON o.c_id = c.c_id
+        WHERE o.u_id = #{uId}
+        AND o.status = #{status}
+        ORDER BY o.create_time DESC
     </select>
 
 

@@ -27,8 +27,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Autowired
     private OrderMapper orderMapper;
 
+    /**
+     * 获取某个用户所有订单数据
+     * @param userId 用户id
+     * @author Makonike
+     * @date 2021/7/23 11:23
+     */
     @Override
-    public List<OrderCommodityUser> getgetOrderList(Integer userId) {
+    public List<OrderCommodityUser> getOrderList(Integer userId) {
         return orderMapper.getOrderList(userId);
     }
 
@@ -56,11 +62,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public Order createOrder(Integer o_id,Integer o_user,Integer o_commodity,String o_condition) throws Exception {
         Date now = new Date();
         Order order=new Order();
-        order.setO_id(o_id);
-        order.setO_user(o_user);
-        order.setO_createTime(now);
-        order.setO_condition(o_condition);
-        order.setO_commodity(o_commodity);
+//        order.setO_id(o_id);
+//        order.setO_user(o_user);
+//        order.setO_createTime(now);
+//        order.setO_condition(o_condition);
+//        order.setO_commodity(o_commodity);
         insertOrder(order);
         return order;
     }
@@ -73,12 +79,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     /**
      * 查询某个用户指定订单状态的订单数据
      * @param userId 用户Id
-     * @param condition 指定的订单状态
+     * @param status 指定的订单状态
      * @author Makonike
      * @date 2021/7/22 22:55
      */
     @Override
-    public List<OrderCommodityUser> getOrderListByCondition(Integer userId, String condition) {
-        return orderMapper.getOrderListByCondition(userId, condition);
+    public List<OrderCommodityUser> getOrderListByStatus(Integer userId, Integer status) {
+        return orderMapper.getOrderListByStatus(userId, status);
     }
 }

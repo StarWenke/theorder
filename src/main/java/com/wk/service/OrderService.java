@@ -20,11 +20,11 @@ import java.util.List;
  */
 public interface OrderService extends IService<Order> {
 
-    List<OrderCommodityUser> getgetOrderList(Integer userId);
+    List<OrderCommodityUser> getOrderList(Integer userId);
 
     boolean orderExpired(Integer oId);
 
-    List<OrderCommodityUser> getOrderListByCondition(Integer userId,String condition);
+    List<OrderCommodityUser> getOrderListByStatus(Integer userId, Integer status);
 
     //查询单个订单
     SpringDataJaxb.OrderDto findOne(int o_id);
