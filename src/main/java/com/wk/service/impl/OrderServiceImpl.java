@@ -1,5 +1,7 @@
 package com.wk.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.wk.entity.Commodity;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
 import com.wk.entity.constants.OrderConstants;
@@ -35,6 +37,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Autowired
     private RedisUtils redisUtils;
 
+    @Autowired
+    IService<Commodity> iService;
 
     @Autowired
     private RedisOrderNoGenerate redisOrderNoGenerate;
@@ -64,23 +68,26 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     /**
      * 创建订单
-     * @param u_id
-     * @param c_id
-     * @param total_amount
+     * @param uId 用户id
+     * @param cId 商品id
      * @return Order
      */
     @Override
-    public Order createOrder(String o_no,Integer u_id,Integer c_id,double total_amount) throws Exception {
+    public boolean createOrder(Integer uId,Integer cId) throws Exception {
+        String oNo = redisOrderNoGenerate.getOrderNo();
         Order order=new Order();
-        order.setONo(o_no);
-        order.setUId(u_id);
-        order.setCId(c_id);
-        order.setTotalAmount(total_amount);
-        Integer rows = orderMapper.insertOrder(order);
-        if (rows != 1) {
+        order.setONo(oNo);
+        order.setUId(uId);
+        order.setCId(cId);
+        Commodity commodity = iService.getById(cId);
+        order.setTotalAmount(commodity.getCNum() * commodity.getCPrice());
+        order.setStatus(0);
+        boolean rows = orderMapper.insertOrder(order);
+        if (!rows) {
             throw new Exception("创建订单失败！");
         }
-        return order;
+        orderExpiredRedisSet(oNo);
+        return true;
     }
 
     /**
@@ -108,7 +115,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     /**
      * 查询某个用户指定订单状态的订单数据
      * @param userId 用户Id
-     * @param status 指定的订单状态
+     * @param status 指定的订单状态 0-未支付，1-已支付，2-已取消，3-支付超时
      * @author Makonike
      * @date 2021/7/22 22:55
      */

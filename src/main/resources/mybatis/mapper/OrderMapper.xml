@@ -25,7 +25,7 @@
     </resultMap>
 
     <sql id="orderListSql">
-        o.o_id, o.o_no, o.total_amount, o.create_time, o.update_time, o.status
+        o.o_id, o.o_no, o.total_amount, o.create_time, o.update_time, o.status,
         c.c_id, c.c_name, c.c_type, c.c_num, c.c_price,
         u.u_id, u.u_name, u.u_phone, u.u_address
     </sql>
