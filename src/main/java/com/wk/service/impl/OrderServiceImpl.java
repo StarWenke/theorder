@@ -1,8 +1,9 @@
 package com.wk.service.impl;
 
-import com.wk.controller.CommodityController;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
+import com.wk.entity.constants.OrderConstants;
+import com.wk.global.util.RedisUtils;
 import com.wk.mapper.OrderMapper;
 import com.wk.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -26,6 +27,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     /**
      * 获取某个用户所有订单数据
@@ -80,6 +84,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public boolean orderExpired(String oNo) {
         return orderMapper.orderExpired(oNo);
+    }
+
+    /**
+     * 将编号插入redis，设定过期时长为30分钟
+     * @param oNo 订单编号
+     * @author Makonike
+     * @date 2021/7/23 12:42
+     */
+    @Override
+    public boolean orderExpiredRedisSet(String oNo) {
+        return redisUtils.set(OrderConstants.ORDER_REDIS_KEY + oNo, 1, OrderConstants.ORDER_OVER_TIME);
     }
 
     /**

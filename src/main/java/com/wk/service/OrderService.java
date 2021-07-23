@@ -24,6 +24,8 @@ public interface OrderService extends IService<Order> {
 
     boolean orderExpired(String oNo);
 
+    boolean orderExpiredRedisSet(String oNo);
+
     List<OrderCommodityUser> getOrderListByStatus(Integer userId, Integer status);
 
     //查询单个订单
