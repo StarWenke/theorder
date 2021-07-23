@@ -13,7 +13,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     List<OrderCommodityUser> getOrderList(@Param("uId") Integer uId);
 
-    boolean orderExpired(@Param("oId") Integer oId);
+    boolean orderExpired(@Param("oNo") String oNo);
 
     List<OrderCommodityUser> getOrderListByStatus(@Param("uId") Integer uId, @Param("status") Integer status);
 

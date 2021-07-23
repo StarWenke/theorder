@@ -48,13 +48,13 @@
         values (#{o_id},#{o_createTime},#{o_user},#{o_commodity},#{o_condition})
     </insert>
 
-    <!--boolean orderExpired(@Param("oId") Integer oId);-->
+    <!--boolean orderExpired(@Param("oNo") String oNo);-->
     <!--只有未支付的订单才能过期-->
     <update id="orderExpired" >
         UPDATE `order`
-        SET o_condition = 3
-        WHERE o_id = #{oId}
-        AND o_condition = 0
+        SET status = 3
+        WHERE o_no = #{oNo}
+        AND status = 0
     </update>
 
     <!--List<OrderCommodityUser> getOrderListByStatus(@Param("uId") Integer uId, @Param("status") Integer status);-->

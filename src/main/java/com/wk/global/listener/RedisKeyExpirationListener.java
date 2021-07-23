@@ -43,7 +43,7 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
             //截取订单号，查询订单，如果是未支付状态则取消订单
             String orderNo = key.substring(5);
             log.info("订单号为：{} 的订单超时未支付，取消订单",orderNo);
-            orderService.orderExpired(Integer.parseInt(orderNo));
+            orderService.orderExpired((orderNo));
         }
     }
 }

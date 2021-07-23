@@ -22,7 +22,7 @@ public interface OrderService extends IService<Order> {
 
     List<OrderCommodityUser> getOrderList(Integer userId);
 
-    boolean orderExpired(Integer oId);
+    boolean orderExpired(String oNo);
 
     List<OrderCommodityUser> getOrderListByStatus(Integer userId, Integer status);
 

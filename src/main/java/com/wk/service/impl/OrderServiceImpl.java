@@ -71,9 +71,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return order;
     }
 
+    /**
+     * 处理订单过期，如果是未支付状态则更新订单状态为订单过期
+     * @param oNo 订单编号
+     * @author Makonike
+     * @date 2021/7/23 12:01
+     */
     @Override
-    public boolean orderExpired(Integer oId) {
-        return orderMapper.orderExpired(oId);
+    public boolean orderExpired(String oNo) {
+        return orderMapper.orderExpired(oNo);
     }
 
     /**
