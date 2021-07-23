@@ -75,7 +75,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setONo(o_no);
         order.setUId(u_id);
         order.setCId(c_id);
-        order.setTotalamount(total_amount);
+        order.setTotalAmount(total_amount);
         Integer rows = orderMapper.insertOrder(order);
         if (rows != 1) {
             throw new Exception("创建订单失败！");
