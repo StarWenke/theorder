@@ -13,9 +13,6 @@ import java.util.concurrent.TimeUnit;
  * 订单编号生成工具类
  * 使用14位时间戳 + 6位自增值 (位数不够自动填充0)
  * redis宕机处理：采用14位时间戳+ 4位随机数生成订单号
- * @author ws
- * @mail 1720696548@qq.com
- * @date 2020/2/20 0020 15:02
  */
 @Configuration
 public class RedisOrderNoGenerate {
@@ -30,10 +27,6 @@ public class RedisOrderNoGenerate {
     /**
      * 获取唯一编号（20位）
      * @param delta 默认初始自增值
-     * @return java.lang.String
-     * @author ws
-     * @mail 1720696548@qq.com
-     * @date 2020/2/20 0020 15:59
      */
     public String getOrderNo(Long delta) {
         try {

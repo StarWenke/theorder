@@ -26,13 +26,13 @@ public class OrderController {
 
     @GetMapping("/{userId}")
     public JsonResponse getOrderList(@PathVariable("userId") @NotNull Integer userId){
-        return new JsonResponse().data(orderService.getgetOrderList(userId));
+        return new JsonResponse().data(orderService.getOrderList(userId));
     }
 
-    @GetMapping("/{userId}/{condition}")
-    public JsonResponse getOrderListByCondition(@PathVariable("userId") @NotNull Integer userId,
-                                                @PathVariable("condition") @NotNull String condition){
-        return new JsonResponse().data(orderService.getOrderListByCondition(userId, condition));
+    @GetMapping("/{userId}/{status}")
+    public JsonResponse getOrderListByStatus(@PathVariable("userId") @NotNull Integer userId,
+                                                @PathVariable("status") @NotNull Integer status){
+        return new JsonResponse().data(orderService.getOrderListByStatus(userId, status));
     }
 
     @GetMapping("/createOrder")

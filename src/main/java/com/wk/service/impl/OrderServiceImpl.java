@@ -1,8 +1,9 @@
 package com.wk.service.impl;
 
-import com.wk.controller.CommodityController;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
+import com.wk.entity.constants.OrderConstants;
+import com.wk.global.util.RedisUtils;
 import com.wk.mapper.OrderMapper;
 import com.wk.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -27,8 +28,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Autowired
     private OrderMapper orderMapper;
 
+    @Autowired
+    private RedisUtils redisUtils;
+
+    /**
+     * 获取某个用户所有订单数据
+     * @param userId 用户id
+     * @author Makonike
+     * @date 2021/7/23 11:23
+     */
     @Override
-    public List<OrderCommodityUser> getgetOrderList(Integer userId) {
+    public List<OrderCommodityUser> getOrderList(Integer userId) {
         return orderMapper.getOrderList(userId);
     }
 
@@ -56,29 +66,46 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public Order createOrder(Integer o_id,Integer o_user,Integer o_commodity,String o_condition) throws Exception {
         Date now = new Date();
         Order order=new Order();
-        order.setO_id(o_id);
-        order.setO_user(o_user);
-        order.setO_createTime(now);
-        order.setO_condition(o_condition);
-        order.setO_commodity(o_commodity);
+//        order.setO_id(o_id);
+//        order.setO_user(o_user);
+//        order.setO_createTime(now);
+//        order.setO_condition(o_condition);
+//        order.setO_commodity(o_commodity);
         insertOrder(order);
         return order;
     }
 
+    /**
+     * 处理订单过期，如果是未支付状态则更新订单状态为订单过期
+     * @param oNo 订单编号
+     * @author Makonike
+     * @date 2021/7/23 12:01
+     */
     @Override
-    public boolean orderExpired(Integer oId) {
-        return orderMapper.orderExpired(oId);
+    public boolean orderExpired(String oNo) {
+        return orderMapper.orderExpired(oNo);
+    }
+
+    /**
+     * 将编号插入redis，设定过期时长为30分钟
+     * @param oNo 订单编号
+     * @author Makonike
+     * @date 2021/7/23 12:42
+     */
+    @Override
+    public boolean orderExpiredRedisSet(String oNo) {
+        return redisUtils.set(OrderConstants.ORDER_REDIS_KEY + oNo, 1, OrderConstants.ORDER_OVER_TIME);
     }
 
     /**
      * 查询某个用户指定订单状态的订单数据
      * @param userId 用户Id
-     * @param condition 指定的订单状态
+     * @param status 指定的订单状态
      * @author Makonike
      * @date 2021/7/22 22:55
      */
     @Override
-    public List<OrderCommodityUser> getOrderListByCondition(Integer userId, String condition) {
-        return orderMapper.getOrderListByCondition(userId, condition);
+    public List<OrderCommodityUser> getOrderListByStatus(Integer userId, Integer status) {
+        return orderMapper.getOrderListByStatus(userId, status);
     }
 }
