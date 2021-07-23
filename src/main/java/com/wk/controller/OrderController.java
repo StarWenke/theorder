@@ -3,6 +3,7 @@ package com.wk.controller;
 
 import com.wk.entity.Order;
 import com.wk.global.entity.dto.JsonResponse;
+import com.wk.global.util.RedisOrderNoGenerate;
 import com.wk.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,9 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @Autowired
+    RedisOrderNoGenerate redisOrderNoGenerate;
+
     @GetMapping("/{userId}")
     public JsonResponse getOrderList(@PathVariable("userId") @NotNull Integer userId){
         return new JsonResponse().data(orderService.getOrderList(userId));
@@ -36,13 +40,13 @@ public class OrderController {
     }
 
     @GetMapping("/createOrder")
-    public JsonResponse createOrder(@RequestParam("o_id") Integer o_id,
-                                    @RequestParam("o_user") Integer o_user,
-                                    @RequestParam("o_commodity") Integer o_commodity,
-                                    @RequestParam("o_condition") String o_condition
+    public JsonResponse createOrder(@RequestParam("o_no") String o_no,
+                                    @RequestParam("u_id") Integer u_id,
+                                    @RequestParam("c_id") Integer c_id,
+                                    @RequestParam("total_amount") double total_amount
 
     ) throws Exception {
-        Order order =orderService.createOrder(o_id,o_user,o_commodity,o_condition);
+        Order order =orderService.createOrder(redisOrderNoGenerate.getOrderNo(),u_id,c_id,total_amount);
         return new JsonResponse().data(order);
     }
 

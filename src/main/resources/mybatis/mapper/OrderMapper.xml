@@ -42,10 +42,10 @@
         ORDER BY o.create_time DESC
     </select>
 
-    <!---增加订单-->
+    <!--增加订单-->
     <insert id="insertOrder" parameterType="Order">
-        INSERT INTO `order` (o_id,o_createTime,o_user,o_commodity,o_condition)
-        values (#{o_id},#{o_createTime},#{o_user},#{o_commodity},#{o_condition})
+        INSERT INTO `order` (o_no,u_id,c_id,total_amount)
+        values (#{oNo},#{uId},#{cId},#{totalAmount})
     </insert>
 
     <!--boolean orderExpired(@Param("oNo") String oNo);-->

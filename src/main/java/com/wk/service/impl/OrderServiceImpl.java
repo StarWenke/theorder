@@ -3,6 +3,7 @@ package com.wk.service.impl;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
 import com.wk.entity.constants.OrderConstants;
+import com.wk.global.util.RedisOrderNoGenerate;
 import com.wk.global.util.RedisUtils;
 import com.wk.mapper.OrderMapper;
 import com.wk.service.OrderService;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +34,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private RedisUtils redisUtils;
+
+
+    @Autowired
+    private RedisOrderNoGenerate redisOrderNoGenerate;
 
     /**
      * 获取某个用户所有订单数据
@@ -53,25 +61,25 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
 
+
+    /**
+     * 创建订单
+     * @param u_id
+     * @param c_id
+     * @param total_amount
+     * @return Order
+     */
     @Override
-    public Integer insertOrder(Order order) throws Exception {
+    public Order createOrder(String o_no,Integer u_id,Integer c_id,double total_amount) throws Exception {
+        Order order=new Order();
+        order.setONo(o_no);
+        order.setUId(u_id);
+        order.setCId(c_id);
+        order.setTotalamount(total_amount);
         Integer rows = orderMapper.insertOrder(order);
         if (rows != 1) {
-            throw new Exception("创建订单失败！插入订单数据时出现未知错误，请联系系统管理员！");
+            throw new Exception("创建订单失败！");
         }
-        return rows;
-    }
-
-    @Override
-    public Order createOrder(Integer o_id,Integer o_user,Integer o_commodity,String o_condition) throws Exception {
-        Date now = new Date();
-        Order order=new Order();
-//        order.setO_id(o_id);
-//        order.setO_user(o_user);
-//        order.setO_createTime(now);
-//        order.setO_condition(o_condition);
-//        order.setO_commodity(o_commodity);
-        insertOrder(order);
         return order;
     }
 

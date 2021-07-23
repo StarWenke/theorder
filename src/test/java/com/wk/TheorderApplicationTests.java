@@ -16,10 +16,6 @@ class TheorderApplicationTests {
 
     @Test
     void contextLoads() {
-        List<OrderCommodityUser> orderCommodityUsers = orderService.getgetOrderList(1);
-        for (OrderCommodityUser orderCommodityUser : orderCommodityUsers) {
-            System.out.println(orderCommodityUser);
-        }
     }
 
 }
