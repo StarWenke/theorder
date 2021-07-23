@@ -37,6 +37,7 @@ public class Order implements Serializable {
     @TableId(value = "o_id", type = IdType.AUTO)
     private Integer oId;
 
+    @ApiModelProperty(value = "订单编号")
     @TableField("o_no")
     private String oNo;
 
@@ -47,6 +48,7 @@ public class Order implements Serializable {
     private Integer cId;
 
     @ApiModelProperty(value = "商品总价")
+    @TableField("total_amount")
     private Double totalAmount;
 
     @TableField("create_time")
@@ -56,6 +58,7 @@ public class Order implements Serializable {
     private Date updateTime;
 
     @ApiModelProperty(value = "订单状态")
-    private String status;
+    @TableField("status")
+    private Integer status;
 
 }
