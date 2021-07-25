@@ -48,11 +48,11 @@
         values (#{oNo},#{uId},#{cId},#{totalAmount})
     </insert>
 
-    <!--boolean orderExpired(@Param("oNo") String oNo);-->
+    <!--boolean orderExpired(@Param("oNo") String oNo, @Param("update_time")Date date);-->
     <!--只有未支付的订单才能过期-->
     <update id="orderExpired" >
         UPDATE `order`
-        SET status = 3
+        SET status = 3, update_time = `date`
         WHERE o_no = #{oNo}
         AND status = 0
     </update>
