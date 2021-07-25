@@ -98,7 +98,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      */
     @Override
     public boolean orderExpired(String oNo) {
-        return orderMapper.orderExpired(oNo);
+        return orderMapper.orderExpired(oNo,new Date());
     }
 
     /**

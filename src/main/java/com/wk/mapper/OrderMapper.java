@@ -6,6 +6,7 @@ import com.wk.entity.OrderCommodityUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -13,7 +14,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     List<OrderCommodityUser> getOrderList(@Param("uId") Integer uId);
 
-    boolean orderExpired(@Param("oNo") String oNo);
+    boolean orderExpired(@Param("oNo") String oNo, @Param("update_time")Date date);
 
     List<OrderCommodityUser> getOrderListByStatus(@Param("uId") Integer uId, @Param("status") Integer status);
 
