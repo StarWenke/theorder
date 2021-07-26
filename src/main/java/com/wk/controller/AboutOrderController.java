@@ -1,6 +1,7 @@
 package com.wk.controller;
 
-import com.wk.dto.OrderDto;
+
+import com.wk.entity.Order;
 import com.wk.enums.ResultEnum;
 import com.wk.exception.SellException;
 import com.wk.service.OrderService;
@@ -26,8 +27,8 @@ public class AboutOrderController {
     public ModelAndView cancel(@RequestParam("o_id") int o_id, Map<String,Object> map){
 
         try{
-            OrderDto orderDto = OrderService.findOne(o_id);
-            OrderService.cancel(orderDto);
+            Order order = OrderService.findOne(o_id);
+            OrderService.cancel(order);
         } catch(SellException e){
             log.error("!!卖家取消订单!!发生异常{}",e);
             map.put("msg", e.getMessage());
@@ -38,4 +39,5 @@ public class AboutOrderController {
         map.put("url","/seller/order/list");
         return new ModelAndView("common/success");
     }
+
 }

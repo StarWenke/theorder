@@ -2,8 +2,6 @@ package com.wk.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wk.controller.CommodityController;
-import com.wk.dto.OrderDto;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
 
@@ -25,12 +23,12 @@ public interface OrderService extends IService<Order> {
     List<OrderCommodityUser> getgetOrderList(Integer userId);
 
     //查询单个订单
-   static OrderDto findOne(int o_id){
+   static Order findOne(int o_id){
     return null;
    }
 
     //取消订单
-    static OrderDto cancel(OrderDto orderDto) {
+    static Order cancel(Order order) {
 
        return null;
     }

@@ -1,17 +1,19 @@
 package com.wk;
 
 
-import com.wk.dto.OrderDto;
+
+import com.wk.entity.Order;
 import com.wk.service.OrderService;
-import org.junit.Assert;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 
 
 public class CancelOrderTest {
 
     @Test
     public void cancel() throws Exception{
-        OrderDto orderDto = OrderService.findOne(1);
-        OrderDto result = OrderService.cancel(orderDto);
+        Order order = OrderService.findOne(1);
+        Order result = OrderService.cancel(order);
     }
 }
