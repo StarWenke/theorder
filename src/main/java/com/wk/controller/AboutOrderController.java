@@ -1,11 +1,12 @@
 package com.wk.controller;
 
+
+import com.wk.entity.Order;
 import com.wk.enums.ResultEnum;
 import com.wk.exception.SellException;
 import com.wk.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +26,8 @@ public class AboutOrderController {
     @GetMapping("/cancel")
     public ModelAndView cancel(@RequestParam("o_id") int o_id, Map<String,Object> map){
         try{
-            SpringDataJaxb.OrderDto orderDto = orderService.findOne(o_id);
-            orderService.cancel(orderDto);
+            Order order = OrderService.findOne(o_id);
+            OrderService.cancel(order);
         } catch(SellException e){
             log.error("!!卖家取消订单!!发生异常{}",e);
             map.put("msg", e.getMessage());
@@ -37,4 +38,5 @@ public class AboutOrderController {
         map.put("url","/seller/order/list");
         return new ModelAndView("common/success");
     }
+
 }
