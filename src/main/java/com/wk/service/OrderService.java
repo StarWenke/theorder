@@ -25,7 +25,7 @@ public interface OrderService extends IService<Order> {
 
     List<OrderCommodityUser> getOrderList(Integer userId);
 
-    List<OrderCommodityUser> getgetOrderList(Integer userId);
+
 
     //查询单个订单
     Order findOne(int o_id) ;

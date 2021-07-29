@@ -50,11 +50,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public List<OrderCommodityUser> getgetOrderList(Integer userId) {
-        return null;
-    }
-
-    @Override
     public Order findOne(int o_id) {
         return null;
     }
