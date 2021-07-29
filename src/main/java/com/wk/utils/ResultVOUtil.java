@@ -1,25 +1,27 @@
 package com.wk.utils;
 
-import com.wk.VO.ResultVO;
+
+import com.wk.global.entity.dto.JsonResponse;
+import com.wk.global.enums.ResultCode;
 
 public class ResultVOUtil {
 
-    public static ResultVO success(Object object){
-        ResultVO resultVO = new ResultVO();
-        resultVO.setData(object);
-        resultVO.setCode(0);
-        resultVO.setMsg("成功");
-        return resultVO;
+    public static JsonResponse success(Object object){
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setData(object);
+        jsonResponse.setCode(ResultCode.OK);
+        jsonResponse.setMessage("成功");
+        return jsonResponse;
     }
 
-    public static ResultVO success(){
+    public static JsonResponse success(){
         return success(null);
     }
 
-    public static ResultVO error (Integer code, String msg){
-        ResultVO resultVO = new ResultVO();
-        resultVO.setCode(code);
-        resultVO.setMsg(msg);
-        return resultVO;
+    public static JsonResponse error (Integer code, String msg){
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setCode(ResultCode.OK);
+        jsonResponse.setMessage(msg);
+        return jsonResponse;
     }
 }
