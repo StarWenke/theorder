@@ -26,8 +26,8 @@ public class AboutOrderController {
     @GetMapping("/cancel")
     public ModelAndView cancel(@RequestParam("o_id") int o_id, Map<String,Object> map){
         try{
-            Order order = OrderService.findOne(o_id);
-            OrderService.cancel(order);
+            Order order = orderService.findOne(o_id);
+            orderService.cancel(order);
         } catch(SellException e){
             log.error("!!卖家取消订单!!发生异常{}",e);
             map.put("msg", e.getMessage());

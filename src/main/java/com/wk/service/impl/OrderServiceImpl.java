@@ -11,12 +11,7 @@ import com.wk.mapper.OrderMapper;
 import com.wk.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -55,12 +50,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public SpringDataJaxb.OrderDto findOne(int o_id) {
+    public List<OrderCommodityUser> getgetOrderList(Integer userId) {
         return null;
     }
 
     @Override
-    public SpringDataJaxb.OrderDto cancel(SpringDataJaxb.OrderDto orderDto) {
+    public Order findOne(int o_id) {
+        return null;
+    }
+
+
+
+    @Override
+    public Order cancel(Order order) {
         return null;
     }
 
@@ -73,7 +75,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @return Order
      */
     @Override
-    public boolean createOrder(Integer uId,Integer cId) throws Exception {
+    public boolean createOrder(Integer uId, Integer cId) throws Exception {
         String oNo = redisOrderNoGenerate.getOrderNo();
         Order order=new Order();
         order.setONo(oNo);
