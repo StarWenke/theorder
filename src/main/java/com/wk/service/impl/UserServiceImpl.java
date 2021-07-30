@@ -1,5 +1,6 @@
 package com.wk.service.impl;
 
+import com.wk.entity.Order;
 import com.wk.entity.User;
 import com.wk.mapper.UserMapper;
 import com.wk.service.UserService;
@@ -17,4 +18,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
+    @Override
+    public Order cancelOrder(Integer o_id) {
+        return null;
+    }
+
+    @Override
+    public Order findOrderOne(Integer o_id) {
+        return null;
+    }
 }

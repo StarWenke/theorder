@@ -5,13 +5,23 @@ import com.wk.entity.Commodity;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
 import com.wk.entity.constants.OrderConstants;
+import com.wk.enums.OrderStatusEnum;
+import com.wk.enums.ResultEnum;
+import com.wk.exception.SellException;
 import com.wk.global.util.RedisOrderNoGenerate;
 import com.wk.global.util.RedisUtils;
 import com.wk.mapper.OrderMapper;
+import com.wk.repository.OrderRepository;
 import com.wk.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +34,15 @@ import java.util.List;
  * @since 2021-07-19
  */
 @Service
+@Slf4j
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
 
+
+    @Autowired
+    private OrderRepository orderRepository;
     @Autowired
     private RedisUtils redisUtils;
 
@@ -51,14 +65,31 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public Order findOne(int o_id) {
-        return null;
+
+        Order order = (Order) orderRepository.findByo_id(o_id);
+        return order;
     }
 
 
-
     @Override
+    @Transactional
     public Order cancel(Order order) {
-        return null;
+        Order order1 = new Order();
+
+        //1.判断订单状态
+        if (!order.getStatus().equals(OrderStatusEnum.NEW.getCode())){
+            log.error("【取消订单】更新失败，order={}", order1);
+            throw new SellException(ResultEnum.ORDER_EMPTY);
+        }
+        //2.修改订单状态
+        order1.setStatus(OrderStatusEnum.CANCEL.getCode());
+        BeanUtils.copyProperties(order,order1);
+        Order updateResult = orderRepository.save(order1);
+        if (updateResult == null){
+            log.error("【取消订单】更新失败，order={}", order1);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+        return order1;
     }
 
 

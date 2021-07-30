@@ -6,7 +6,12 @@ import lombok.Getter;
 //enum枚举？的使用
 public enum ResultEnum {
 
-    ORDER_CANCEL_SUCCESS(22, "订单取消成功"),;
+    ORDER_CANCEL_SUCCESS(22, "订单取消成功"),
+    ORDER_EMPTY(33,"订单未找到"),
+    ORDER_UPDATE_FAIL(44,"订单更新失败"),
+    ORDER_NOT_EXIST(55,"订单不存在"),
+    COMMODITY_NOT_EXIST(66,"订单包含的信息不存在"),
+    ;
 
     private Integer code;
 

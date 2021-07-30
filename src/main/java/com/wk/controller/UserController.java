@@ -2,6 +2,9 @@ package com.wk.controller;
 
 
 import com.wk.service.UserService;
+import com.wk.service.impl.UserServiceImpl;
+import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,11 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    UserServiceImpl userService;
 
     @PostMapping("/cancel")
-    public String cancle (@RequestParam("c_id") String c_id
-            ,@RequestParam("o_id") String o_id){
-        UserService.cancelOrder(c_id, o_id);
+    public String cancle (@RequestParam("o_id") Integer o_id){
+        userService.cancelOrder(o_id);
         return "/common/success";
     }
 }

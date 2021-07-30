@@ -31,7 +31,7 @@ public interface OrderService extends IService<Order> {
     Order findOne(int o_id) ;
 
     //取消订单
-   Order cancel(Order order) ;
+    Order cancel(Order order) ;
 
     boolean createOrder(Integer uId, Integer cId) throws Exception;
 
