@@ -101,6 +101,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @return Order
      */
     @Override
+    @Transactional
     public boolean createOrder(Integer uId, Integer cId) throws Exception {
         String oNo = redisOrderNoGenerate.getOrderNo();
         Order order=new Order();
