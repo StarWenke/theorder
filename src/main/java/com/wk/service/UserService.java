@@ -16,9 +16,4 @@ import org.springframework.data.domain.jaxb.SpringDataJaxb;
  */
 public interface UserService extends IService<User> {
 
-    //取消订单
-    static Order cancelOrder(String c_id, String o_id) {
-        return null;
-    }
-
 }
