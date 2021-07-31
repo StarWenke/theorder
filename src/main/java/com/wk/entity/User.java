@@ -12,6 +12,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * <p>
  * 
@@ -21,6 +24,7 @@ import lombok.experimental.Accessors;
  * @since 2021-07-19
  */
 @Data
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="User对象", description="")
@@ -32,6 +36,7 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "用户id")
     @TableId(value = "u_id", type = IdType.AUTO)
+    @Id
     private Integer uId;
 
     @ApiModelProperty(value = "用户名称")

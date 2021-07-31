@@ -13,6 +13,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * <p>
  * 
@@ -22,6 +25,7 @@ import lombok.experimental.Accessors;
  * @since 2021-07-19
  */
 @Data
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="Commodity对象", description="")
@@ -33,6 +37,7 @@ public class Commodity implements Serializable {
 
     @ApiModelProperty(value = "商品id")
     @TableId(value = "c_id", type = IdType.AUTO)
+    @Id
     private Integer cId;
 
     @ApiModelProperty(value = "商品名称")

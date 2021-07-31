@@ -16,7 +16,7 @@ import org.springframework.data.domain.jaxb.SpringDataJaxb;
  */
 public interface UserService extends IService<User> {
 
-    Order cancelOrder(Integer o_id);
+   // Order cancelOrder(Integer o_id);
 
     Order findOrderOne(Integer o_id);
 }

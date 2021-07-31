@@ -7,5 +7,5 @@ import org.springframework.data.domain.Page;
 import java.awt.print.Pageable;
 
 public interface OrderRepository extends JpaRepository<Order,String> {
-    Object findByo_id(int o_id);
+    Object findByoId(int oId);
 }

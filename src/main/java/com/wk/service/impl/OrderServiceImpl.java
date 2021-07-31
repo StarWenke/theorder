@@ -40,6 +40,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Autowired
     private OrderMapper orderMapper;
 
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -64,18 +66,39 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public Order findOne(int o_id) {
+    public Order findOne(int oId) {
 
-        Order order = (Order) orderRepository.findByo_id(o_id);
+        Order order = (Order) orderRepository.findByoId(oId);
         return order;
     }
 
+//    @Override
+//    public Order cancelOrder(Integer oId) {
+//        Order order = checkOrder(oId);
+//        if (order == null){
+//            log.error("【取消订单】查不到该订单, oId={}",oId);
+//            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
+//        }
+//        return orderService.cancel(order);
+//    }
+
+    private Order checkOrder(Integer oId){
+        Order order = orderService.findOne(oId);
+        if (order == null){
+            return null;
+        }
+
+        if (!order.getOId().equals(oId)){
+            log.error("【查询订单】订单id不一致");
+            throw new SellException(ResultEnum.ORDER_EMPTY);
+        }
+        return order;
+    }
 
     @Override
     @Transactional
     public Order cancel(Order order) {
         Order order1 = new Order();
-
         //1.判断订单状态
         if (!order.getStatus().equals(OrderStatusEnum.NEW.getCode())){
             log.error("【取消订单】更新失败，order={}", order1);

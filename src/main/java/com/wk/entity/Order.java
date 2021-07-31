@@ -13,7 +13,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.context.annotation.Bean;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * <p>
@@ -24,17 +28,20 @@ import org.springframework.context.annotation.Bean;
  * @since 2021-07-19
  */
 @Data
+@Entity
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(value="Order对象", description="")
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicUpdate
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "订单id")
     @TableId(value = "o_id", type = IdType.AUTO)
+    @Id
     private Integer oId;
 
     @ApiModelProperty(value = "订单编号")

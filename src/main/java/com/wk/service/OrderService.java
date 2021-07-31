@@ -28,7 +28,7 @@ public interface OrderService extends IService<Order> {
 
 
     //查询单个订单
-    Order findOne(int o_id) ;
+    Order findOne(int oId) ;
 
     //取消订单
     Order cancel(Order order) ;
