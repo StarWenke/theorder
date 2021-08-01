@@ -5,6 +5,7 @@ import com.wk.entity.Order;
 import com.wk.global.entity.dto.JsonResponse;
 import com.wk.global.util.RedisOrderNoGenerate;
 import com.wk.service.OrderService;
+import com.wk.utils.ResultVOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,13 @@ public class OrderController {
         return new JsonResponse().data(orderService.createOrder(uId,cId));
     }
 
+    @PostMapping("/cancelOrder/{orderId}")
+    public JsonResponse cancelOrder(@RequestParam(value = "orderId",required = false) @NotNull Integer orderId) throws Exception{
+        Order order = new Order();
+        orderService.findOne(orderId);
+        orderService.cancel(orderId);
+        order.setStatus(2);
+        return new JsonResponse().data(orderService.cancel(orderId));
+    }
 
 }
-

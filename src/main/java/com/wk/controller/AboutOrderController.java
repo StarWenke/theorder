@@ -16,27 +16,27 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/seller/order") // 将订单的管理事项，交由seller（卖家）管理
+@RequestMapping("/seller/order")
 @Slf4j
 public class AboutOrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/cancel")
-    public ModelAndView cancel(@RequestParam("o_id") int o_id, Map<String,Object> map){
-        try{
-            Order order = orderService.findOne(o_id);
-            orderService.cancel(order);
-        } catch(SellException e){
-            log.error("!!卖家取消订单!!发生异常{}",e);
-            map.put("msg", e.getMessage());
-            map.put("url","/seller/order/list");
-            return new ModelAndView("common/error",map);
-        }
-        map.put("msg", ResultEnum.ORDER_CANCEL_SUCCESS.getMessage());
-        map.put("url","/seller/order/list");
-        return new ModelAndView("common/success");
-    }
+//    @GetMapping("/cancel")
+//    public ModelAndView cancel(@RequestParam("o_id") int o_id, Map<String,Object> map){
+//        try{
+//            Order order = orderService.findOne(o_id);
+//            orderService.cancel(order);
+//        } catch(SellException e){
+//            log.error("!!卖家取消订单!!发生异常{}",e);
+//            map.put("msg", e.getMessage());
+//            map.put("url","/seller/order/list");
+//            return new ModelAndView("common/error",map);
+//        }
+//        map.put("msg", ResultEnum.ORDER_CANCEL_SUCCESS.getMessage());
+//        map.put("url","/seller/order/list");
+//        return new ModelAndView("common/success");
+//    }
 
 }

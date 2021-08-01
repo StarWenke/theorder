@@ -14,13 +14,13 @@ import com.wk.mapper.OrderMapper;
 import com.wk.repository.OrderRepository;
 import com.wk.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -68,8 +68,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public Order findOne(int oId) {
 
-        Order order = (Order) orderRepository.findByoId(oId);
+        Order order = new Order();
+        order = orderMapper.selectById(oId);
         return order;
+    }
+
+    @Override
+    public boolean cancel(Integer orderId) {
+        Order order = new Order();
+        return orderMapper.cancelOrder(orderId);
     }
 
 //    @Override
@@ -94,27 +101,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         return order;
     }
-
-    @Override
-    @Transactional
-    public Order cancel(Order order) {
-        Order order1 = new Order();
-        //1.判断订单状态
-        if (!order.getStatus().equals(OrderStatusEnum.NEW.getCode())){
-            log.error("【取消订单】更新失败，order={}", order1);
-            throw new SellException(ResultEnum.ORDER_EMPTY);
-        }
-        //2.修改订单状态
-        order1.setStatus(OrderStatusEnum.CANCEL.getCode());
-        BeanUtils.copyProperties(order,order1);
-        Order updateResult = orderRepository.save(order1);
-        if (updateResult == null){
-            log.error("【取消订单】更新失败，order={}", order1);
-            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
-        }
-        return order1;
-    }
-
 
 
     /**

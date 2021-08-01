@@ -2,10 +2,10 @@ package com.wk.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wk.controller.CommodityController;
 
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
+import io.swagger.models.auth.In;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 
 
@@ -21,17 +21,13 @@ import java.util.List;
  */
 
 public interface OrderService extends IService<Order> {
-
-
     List<OrderCommodityUser> getOrderList(Integer userId);
-
-
 
     //查询单个订单
     Order findOne(int oId) ;
 
     //取消订单
-    Order cancel(Order order) ;
+    boolean cancel(Integer orderId) ;
 
     boolean createOrder(Integer uId, Integer cId) throws Exception;
 
