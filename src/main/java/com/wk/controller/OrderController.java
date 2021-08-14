@@ -44,13 +44,13 @@ public class OrderController {
         return new JsonResponse().data(orderService.createOrder(uId,cId));
     }
 
-    @PostMapping("/cancelOrder/{orderId}")
-    public JsonResponse cancelOrder(@RequestParam(value = "orderId",required = false) @NotNull Integer orderId) throws Exception{
-        Order order = new Order();
-        orderService.findOne(orderId);
-        orderService.cancel(orderId);
-        order.setStatus(2);
-        return new JsonResponse().data(orderService.cancel(orderId));
-    }
+//    @PostMapping("/cancelOrder/{orderId}")
+//    public JsonResponse cancelOrder(@RequestParam(value = "orderId",required = false) @NotNull Integer orderId) throws Exception{
+//        Order order = new Order();
+//        orderService.findOne(orderId);
+//        orderService.cancel(orderId);
+//        order.setStatus(2);
+//        return new JsonResponse().data(orderService.cancel(orderId));
+//    }
 
 }

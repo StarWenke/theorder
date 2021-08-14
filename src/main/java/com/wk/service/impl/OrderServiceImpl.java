@@ -1,17 +1,22 @@
 package com.wk.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.wk.dto.CartDTO;
+import com.wk.dto.OrderDTO;
 import com.wk.entity.Commodity;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
 import com.wk.entity.constants.OrderConstants;
 import com.wk.enums.OrderStatusEnum;
+import com.wk.enums.PayStatusEnum;
 import com.wk.enums.ResultEnum;
 import com.wk.exception.SellException;
 import com.wk.global.util.RedisOrderNoGenerate;
 import com.wk.global.util.RedisUtils;
 import com.wk.mapper.OrderMapper;
 import com.wk.repository.OrderRepository;
+import com.wk.service.CommodityService;
 import com.wk.service.OrderService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.swagger.models.auth.In;
@@ -21,9 +26,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import javax.xml.transform.Result;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -42,6 +51,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private CommodityService commodityService;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -74,9 +86,48 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public boolean cancel(Integer orderId) {
+    public OrderDTO findOne2(int oId) {
+        OrderDTO orderDTO = orderRepository.findByoId(oId);
+        return orderDTO;
+    }
+
+    @Override
+    public OrderDTO cancel(OrderDTO orderDTO) {
         Order order = new Order();
-        return orderMapper.cancelOrder(orderId);
+
+        //判断订单状态
+        if (!orderDTO.getStatus().equals(OrderStatusEnum.NEW.getCode())){
+            log.error("【取消订单】订单状态不正确，orderDTO={},orderStatus={}",orderDTO.getOId(),orderDTO.getStatus());
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
+        }
+
+        //修改订单状态为取消
+        orderDTO.setStatus(OrderStatusEnum.CANCEL.getCode());
+        BeanUtils.copyProperties(orderDTO,order);
+        Order updateResult = orderRepository.save(order);
+        if (updateResult == null){
+            log.error("【取消订单】更新失败,order={}",order);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
+        }
+
+        //返回库存
+        if (CollectionUtils.isEmpty(orderDTO.getOrderList())){
+            log.error("【取消订单】订单中无商品详情，orderDTO={}",orderDTO);
+            throw new SellException(ResultEnum.ORDER_DETAIL_EMPTY);
+        }
+
+        List<Order> orderList = orderDTO.getOrderList();
+        List<CartDTO> cartDTOList = new ArrayList<>();
+        BeanUtils.copyProperties(cartDTOList,orderList);
+        commodityService.increaseStock(cartDTOList);
+
+        //如果已经支付了，那么就退款
+        if (orderDTO.getStatus().equals(PayStatusEnum.SUCCESS.getCode())){
+            //TODO
+        }
+
+        return orderDTO;
+
     }
 
 //    @Override

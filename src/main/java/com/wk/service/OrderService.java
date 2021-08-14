@@ -3,6 +3,7 @@ package com.wk.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import com.wk.dto.OrderDTO;
 import com.wk.entity.Order;
 import com.wk.entity.OrderCommodityUser;
 import io.swagger.models.auth.In;
@@ -26,8 +27,9 @@ public interface OrderService extends IService<Order> {
     //查询单个订单
     Order findOne(int oId) ;
 
-    //取消订单
-    boolean cancel(Integer orderId) ;
+    OrderDTO findOne2(int oId);
+
+    OrderDTO cancel(OrderDTO orderDTO);
 
     boolean createOrder(Integer uId, Integer cId) throws Exception;
 
